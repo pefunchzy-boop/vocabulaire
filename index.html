@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Vocab DE-FR</title>
+
+<!-- Meta PWA / Icônes -->
+<link rel="icon" type="image/png" sizes="180x180" href="icon-180.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#12141c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Vocab DE-FR">
+
+<style>
+  :root {
+    --bg: #12141c;
+    --card: #1c1f2b;
+    --card2: #252939;
+    --accent: #7c9eff;
+    --accent2: #6fe3a8;
+    --bad: #ff7c7c;
+    --text: #eef0f6;
+    --sub: #9aa0b4;
+    --radius: 18px;
+
+    /* Couleurs Déterminants */
+    --art-der: #7c9eff;
+    --art-die-fem: #ff7c7c;
+    --art-das: #6fe3a8;
+    --art-die-plu: #ffffff;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+  }
+  h1 { font-size: 1.3rem; margin: 8px 0 2px; text-align: center; }
+  .sub { color: var(--sub); font-size: .85rem; text-align: center; margin-bottom: 18px; }
+  .wrap { width: 100%; max-width: 480px; flex: 1; display: flex; flex-direction: column; }
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 14px;
+  }
+  .btn {
+    display: block; width: 100%; padding: 14px; border: none; border-radius: 14px;
+    background: var(--accent); color: #0b0d14; font-size: 1rem; font-weight: 600;
+    margin-top: 10px; cursor: pointer;
+  }
+  .btn.secondary { background: var(--card2); color: var(--text); }
+  .btn.good { background: var(--accent2); color: #0b0d14; }
+  .btn.bad { background: var(--bad); color: #2b0b0b; }
+  .row { display: flex; gap: 10px; }
+  .row .btn { flex: 1; }
+  select, textarea, input[type=text] {
+    width: 100%; background: var(--card2); border: 1px solid #333850; color: var(--text);
+    border-radius: 12px; padding: 12px; font-size: 1rem; margin-top: 8px;
+  }
+  textarea { min-height: 140px; font-family: monospace; font-size: .85rem; resize: vertical; }
+  label { font-size: .85rem; color: var(--sub); }
+  .toggle {
+    display: flex; background: var(--card2); border-radius: 14px; padding: 4px; margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .toggle button {
+    flex: 1; min-width: 30%; padding: 10px 6px; border: none; border-radius: 10px; background: transparent;
+    color: var(--sub); font-weight: 600; font-size: .82rem; cursor: pointer;
+  }
+  .toggle button.active { background: var(--accent); color: #0b0d14; }
+  .hidden { display: none !important; }
+  .flash {
+    background: var(--card); border-radius: var(--radius);
+    padding: 36px 20px; text-align: center; min-height: 170px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .flash .front { font-size: 1.5rem; font-weight: 700; }
+  .flash .back { font-size: 1.15rem; color: var(--accent2); margin-top: 14px; }
+  .flash .tag { font-size: .75rem; color: var(--sub); margin-top: 10px; }
+  .progress { font-size: .8rem; color: var(--sub); text-align: center; margin-bottom: 6px; }
+  .barbg { width: 100%; height: 6px; background: var(--card2); border-radius: 4px; overflow: hidden; margin-bottom: 16px; }
+  .barfill { height: 100%; background: var(--accent); transition: width .2s; }
+  .score { font-size: 2.2rem; font-weight: 800; text-align: center; margin: 14px 0 4px; }
+  .missedlist { font-size: .85rem; color: var(--sub); line-height: 1.6; max-height: 180px; overflow-y: auto; }
+  .missedlist b { color: var(--text); }
+  .listbtns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .chip {
+    padding: 8px 12px; border-radius: 20px; background: var(--card2); color: var(--sub);
+    font-size: .8rem; border: 1px solid #333850; cursor: pointer;
+  }
+  .chip.active { background: var(--accent); color: #0b0d14; border-color: var(--accent); }
+  .top-nav { display: flex; justify-content: space-between; width: 100%; max-width: 480px; margin-bottom: 6px; }
+  .top-nav button { background: none; border: none; color: var(--sub); font-size: .85rem; cursor: pointer; }
+  .offline-note { font-size: .7rem; color: var(--sub); text-align: center; margin-top: 20px; opacity: .6; }
+  .feedback { font-size: .95rem; text-align: center; margin-top: 10px; min-height: 22px; font-weight: 600; }
+  .feedback.ok { color: var(--accent2); }
+  .feedback.ko { color: var(--bad); }
+  .qcmgrid { display: flex; flex-direction: column; gap: 10px; }
+  .qcmgrid.row-mode { flex-direction: row; }
+  .qcmgrid.row-mode .qcmopt { flex: 1; text-align: center; font-size: 1.2rem; font-weight: bold; }
+  .qcmopt {
+    padding: 14px; border-radius: 14px; background: var(--card2); border: 2px solid transparent;
+    text-align: left; font-size: .95rem; cursor: pointer; color: var(--text);
+  }
+  .qcmopt.correct { background: rgba(111,227,168,.2); border-color: var(--accent2); }
+  .qcmopt.wrong { background: rgba(255,124,124,.2); border-color: var(--bad); }
+  .imgpreview { width: 100%; border-radius: 12px; margin-top: 10px; max-height: 260px; object-fit: contain; background: #000; }
+  .filebtn {
+    display: block; width: 100%; padding: 12px; border-radius: 12px; background: var(--card2);
+    border: 1px dashed #444a66; color: var(--sub); text-align: center; font-size: .85rem; margin-top: 10px; cursor: pointer;
+  }
+
+  /* Style Déterminants Colorés */
+  .art-der { color: var(--art-der) !important; font-weight: bold; }
+  .art-die-fem { color: var(--art-die-fem) !important; font-weight: bold; }
+  .art-das { color: var(--art-das) !important; font-weight: bold; }
+  .art-die-plu { color: var(--art-die-plu) !important; font-weight: bold; text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>🇩🇪 ⇄ 🇫🇷 Vocab</h1>
+<div class="sub" id="subtitle">Révise ton vocabulaire, direction au choix</div>
+<div class="card hidden" id="storageWarning" style="border:1px solid var(--bad);">
+  Stockage local indisponible sur ce lecteur. Tes progrès ne seront pas conservés après la fermeture.
+</div>
+
+<div class="wrap">
+
+  <!-- ÉCRAN ACCUEIL -->
+  <div id="screen-home">
+    <div class="card">
+      <label>Liste de vocabulaire</label>
+      <select id="listSelect"></select>
+      <div class="listbtns">
+        <div class="chip" id="btnNewList">+ Nouvelle liste</div>
+        <div class="chip" id="btnEditList">✏️ Modifier / coller du texte</div>
+        <div class="chip" id="btnDeleteList">🗑️ Supprimer</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <label>Sens de la question</label>
+      <div class="toggle">
+        <button id="dirDF" class="active">Allemand → Français</button>
+        <button id="dirFD">Français → Allemand</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <label>Mode de jeu</label>
+      <div class="toggle">
+        <button id="modeFlash" class="active">📇 Flashcard</button>
+        <button id="modeSpell">⌨️ Orthographe</button>
+        <button id="modeQcm">☑️ QCM</button>
+        <button id="modeArticle">🎯 Déterminant</button>
+        <button id="modePlural">📚 Pluriel</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <label>Priorité</label>
+      <div class="toggle">
+        <button id="modeAll" class="active">Tous les mots</button>
+        <button id="modeMissed">Mots ratés en priorité</button>
+      </div>
+    </div>
+
+    <button class="btn" id="btnStart">Commencer ▶</button>
+  </div>
+
+  <!-- ÉCRAN IMPORT / EDIT -->
+  <div id="screen-edit" class="hidden">
+    <div class="card">
+      <label>Nom de la liste</label>
+      <input type="text" id="editName" placeholder="ex: Kultur und Sprachen">
+      <label style="display:block;margin-top:14px;">
+        Colle ta liste : un mot par ligne, format <code>allemand ; français</code>
+      </label>
+      <textarea id="editArea" placeholder="der Autor(en) ; l'auteur&#10;der Roman(e) ; le roman"></textarea>
+
+      <label style="display:block;margin-top:14px;">Photo de la feuille (aide-mémoire pendant la saisie)</label>
+      <label class="filebtn" id="imgPickLabel">📷 Choisir une image</label>
+      <input type="file" id="imgPick" accept="image/*" class="hidden">
+      <img id="imgPreview" class="imgpreview hidden">
+      <div class="sub" style="margin-top:6px;">
+        L'image reste affichée ici pour te servir d'aide visuelle pendant la saisie.
+      </div>
+    </div>
+    <div class="row">
+      <button class="btn secondary" id="btnCancelEdit">Annuler</button>
+      <button class="btn" id="btnSaveEdit">Enregistrer</button>
+    </div>
+  </div>
+
+  <!-- ÉCRAN QUIZ -->
+  <div id="screen-quiz" class="hidden">
+    <div class="top-nav">
+      <button id="btnQuit">✕ Quitter</button>
+      <span id="scoreLive" style="color:var(--sub);font-size:.85rem;"></span>
+    </div>
+    <div class="progress" id="progressText"></div>
+    <div class="barbg"><div class="barfill" id="barfill" style="width:0%"></div></div>
+
+    <!-- Carte commune (front) -->
+    <div class="flash" id="flashCard">
+      <div class="front" id="frontText">...</div>
+      <div class="back hidden" id="backText"></div>
+      <div class="tag" id="tagText"></div>
+    </div>
+
+    <!-- MODE FLASHCARD -->
+    <div id="uiFlash">
+      <button class="btn" id="btnReveal">👁️ Voir la réponse</button>
+      <div class="row hidden" id="gradeRow">
+        <button class="btn bad" id="btnWrong">❌ Pas su</button>
+        <button class="btn good" id="btnRight">✅ Su</button>
+      </div>
+    </div>
+
+    <!-- MODE ORTHOGRAPHE & PLURIEL -->
+    <div id="uiSpell" class="hidden">
+      <input type="text" id="spellInput" placeholder="Écris la traduction..." autocomplete="off" autocapitalize="off" spellcheck="false">
+      <div class="feedback" id="spellFeedback"></div>
+      <button class="btn" id="btnSpellCheck">Valider</button>
+      <button class="btn secondary hidden" id="btnSpellNext">Continuer →</button>
+    </div>
+
+    <!-- MODE QCM & ARTICLE -->
+    <div id="uiQcm" class="hidden">
+      <div class="qcmgrid" id="qcmOptions"></div>
+      <div class="feedback" id="qcmFeedback"></div>
+      <button class="btn secondary hidden" id="btnQcmNext">Continuer →</button>
+    </div>
+  </div>
+
+  <!-- ÉCRAN FIN -->
+  <div id="screen-end" class="hidden">
+    <div class="card" style="text-align:center;">
+      <div class="score" id="finalScore">0/0</div>
+      <div class="sub" id="finalPct"></div>
+    </div>
+    <div class="card">
+      <label>Mots à revoir</label>
+      <div class="missedlist" id="missedList"></div>
+    </div>
+    <button class="btn" id="btnReplayMissed">Rejouer les mots ratés</button>
+    <button class="btn secondary" id="btnBackHome">Retour à l'accueil</button>
+  </div>
+
+</div>
+
+<div class="offline-note">📴 Fonctionne totalement hors connexion — enregistre le fichier sur ton téléphone.</div>
+
+<script>
+/* ==========================================================================
+   PATTERNS ARCHITECTURAUX JS
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. UTILS / HELPERS (Fonctions pures)
+   -------------------------------------------------------------------------- */
+const Utils = {
+  shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  },
+  normalize(s) {
+    if (!s) return "";
+    return s.toLowerCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Supprime les accents
+      .replace(/\*/g, '')
+      .replace(/\((adj\.|adj|v\.|v|n\.|n)\)/g, '') // Supprime les annotations de grammaire entre parenthèses
+      .replace(/\([^)]*\)/g, '') // Supprime le reste des parenthèses
+      .replace(/\bqc\./g, 'quelque chose')
+      .replace(/\bqn\./g, 'quelqu\'un')
+      .replace(/\bs'|\bl'/g, '') // Tolérance sur s' et l'
+      .replace(/\s*\/\s*/g, '/')
+      .replace(/[.,;!?]/g, '')
+      .replace(/^die\s+/g, '') // Permet de saisir avec ou sans 'die' au pluriel
+      .trim()
+      .replace(/\s+/g, ' ');
+  },
+  getVariants(s) {
+    const norm = this.normalize(s);
+    const variants = new Set([norm]);
+
+    // Permet de tolérer l'ordre si la chaîne contient des slashes (ex: "gagner/ recevoir")
+    if (s.includes('/')) {
+      const parts = s.split('/').map(p => this.normalize(p)).filter(Boolean);
+      variants.add(parts.join(' '));
+      variants.add(parts.reverse().join(' '));
+      parts.forEach(p => variants.add(p));
+    }
+
+    s.split(/,|\n/).forEach(v => {
+      const clean = this.normalize(v);
+      if (clean) variants.add(clean);
+    });
+
+    return Array.from(variants);
+  },
+  isCorrectAnswer(userInput, expected) {
+    const u = this.normalize(userInput);
+    if (!u) return false;
+    const variants = this.getVariants(expected);
+    
+    // Si l'entrée utilisateur correspond directement à une variante
+    if (variants.includes(u)) return true;
+
+    // Comparaison souple par mots contenus (pour gérer l'ordre permuté des verbes ou groupes de mots)
+    const uWords = u.split(' ').sort().join(' ');
+    for (const v of variants) {
+      if (v.split(' ').sort().join(' ') === uWords) return true;
+    }
+
+    return false;
+  },
+  colorizeArticles(text) {
+    if (!text) return "";
+    return text
+      .replace(/\bder\b/gi, '<span class="art-der">der</span>')
+      .replace(/\bdas\b/gi, '<span class="art-das">das</span>')
+      .replace(/\bdie\b/gi, '<span class="art-die-fem">die</span>');
+  },
+  getArticle(deStr) {
+    const match = deStr.match(/\b(der|die|das)\b/i);
+    return match ? match[1].toLowerCase() : null;
+  },
+  getCleanNoun(deStr) {
+    return deStr.replace(/\([^)]*\)/g, '').trim();
+  },
+  applyUmlaut(word) {
+    const map = { 'a': 'ä', 'o': 'ö', 'u': 'ü', 'A': 'Ä', 'O': 'Ö', 'U': 'Ü' };
+    let chars = word.split('');
+    for (let i = chars.length - 1; i >= 0; i--) {
+      if (map[chars[i]]) {
+        chars[i] = map[chars[i]];
+        break;
+      }
+    }
+    return chars.join('');
+  },
+  computePlural(deStr) {
+    const match = deStr.match(/^((?:der|die|das)\s+)?([^(]+)\(([^)]+)\)/i);
+    if (!match) return null;
+    let baseWord = match[2].trim();
+    let plInfo = match[3].trim().replace(/^-/, '');
+    if (plInfo === '' || plInfo === '-') return baseWord;
+    let hasUmlaut = plInfo.includes('¨');
+    let suffix = plInfo.replace('¨', '').replace('-', '');
+    let word = hasUmlaut ? this.applyUmlaut(baseWord) : baseWord;
+    return word + suffix;
+  }
+};
+
+/* --------------------------------------------------------------------------
+   2. MODULE STORAGE (Singleton & Encapsulation)
+   -------------------------------------------------------------------------- */
+const StorageModule = (function() {
+  const LS_LISTS = "vocabapp_lists_v3";
+  const LS_STATS = "vocabapp_stats_v3";
+  let isAvailable = true;
+
+  const DEFAULT_LISTS = {
+    "Kultur und Sprachen": [
+      ["der Autor(en), der Schriftsteller(-)", "l'auteur, l'écrivain"],
+      ["der Roman(e), das Werk(e)", "le roman, l'œuvre"],
+      ["einen Preis gewinnen*/ bekommen*", "gagner/ recevoir un prix"],
+      ["die Literatur, literarisch", "la littérature, littéraire"],
+      ["auf Deutsch schreiben*/ sprechen*", "écrire/ parler en allemand"],
+      ["im Exil leben", "vivre en exil"],
+      ["die Immigration(en), die Einwanderung(en)", "l'immigration"],
+      ["immigrieren, ein/wandern", "immigrer"],
+      ["die Emigration(en), die Auswanderung(en)", "l'émigration"],
+      ["emigrieren, aus/wandern", "émigrer"],
+      ["der Migrant(en), der Ausländer(-)", "le migrant, l'étranger"],
+      ["der Flüchtling(e), nach Deutschland fliehen", "le réfugié, fuir vers l'Allemagne"],
+      ["die Integration(en), sich integrieren", "l'intégration, s'intégrer"],
+      ["die Diskriminierung(en), diskriminieren", "la discrimination, discriminer"],
+      ["der Rassismus", "le racisme"],
+      ["der Frieden", "la paix"],
+      ["die Mehrsprachigkeit(en), mehrsprachig", "le multilinguisme, multilingue"],
+      ["eine Sprache lernen/ erwerben", "apprendre une langue"],
+      ["der Alltag, alltäglich", "le quotidien, quotidien (adj.)"],
+      ["eine Erfahrung machen", "faire une expérience"],
+      ["etwas erleben", "vivre qc."],
+      ["sich wohl/ fremd fühlen", "se sentir bien/ mal"],
+      ["beschimpft werden*", "se faire insulter"]
+    ],
+    "Géo 1 (36 mots)": [
+      ["die Karte(-n)", "la carte"],
+      ["der (Stadt)plan(-pläne)", "le plan (de ville)"],
+      ["die Legende(-n)", "la légende"],
+      ["der Maßstab(-stäbe)", "l'échelle"],
+      ["die Skizze(-n), eine Skizze anfertigen", "le croquis, réaliser un croquis"],
+      ["das Schema(-ta / Schemata)", "le schéma"],
+      ["die schematische Darstellung", "la représentation schématique"],
+      ["das Satellitenbild(-er)", "l'image satellite"],
+      ["das Luftbild(-er)", "la vue aérienne / photo aérienne"],
+      ["die Fotografie(-n)", "la photographie"],
+      ["der Text(-e)", "le texte"],
+      ["das Diagramm(-e), das Schaubild(-er)", "le graphique, le diagramme"],
+      ["die Darstellung, etwas darstellen", "la représentation, représenter quelque chose"],
+      ["der Raum(Räume)", "l'espace"],
+      ["die Landschaft(-en)", "le paysage"],
+      ["die Landschaftsform(-en)", "la forme du paysage / le relief"],
+      ["das Gebirge(-), der Gebirgszug(-züge)", "la montagne, la chaîne montagneuse"],
+      ["das Hochgebirge(-)", "la haute montagne"],
+      ["das Mittelgebirge(-)", "la moyenne montagne"],
+      ["die Ebene(-n) (in der Ebene)", "la plaine (dans la plaine)"],
+      ["das Tal(Täler) (im Tal)", "la vallée (dans la vallée)"],
+      ["der Fluss(Flüsse) (am Fluss)", "le fleuve / la rivière (au bord du fleuve)"],
+      ["der Kanal(Kanäle)", "le canal"],
+      ["der See(-n) (am See, am Ufer des Sees)", "le lac (au bord du lac, sur la rive du lac)"],
+      ["das Meer(-e) (am Meer)", "la mer (à la mer / au bord de la mer)"],
+      ["der Ozean(-e)", "l'océan"],
+      ["die Küste(-n) (an der Küste)", "la côte (sur la côte)"],
+      ["die Insel(-n)", "l'île"],
+      ["die Stadt(Städte) (in der Stadt)", "la ville (en ville / dans la ville)"],
+      ["das Stadtgebiet(-e)", "la région urbaine / le territoire communal"],
+      ["das Land(Länder)", "le pays"],
+      ["der Staat(-en)", "l'État"],
+      ["der Nachbarstaat(-en)", "l'État voisin / le pays voisin"],
+      ["das Bundesland(-länder)", "l'État fédéré (en Allemagne)"],
+      ["die Region(-en)", "la région (en France)"]
+    ]
+  };
+
+  function safeGet(key) {
+    try { return localStorage.getItem(key); }
+    catch(e) { isAvailable = false; return null; }
+  }
+  function safeSet(key, val) {
+    try { localStorage.setItem(key, val); }
+    catch(e) { isAvailable = false; }
+  }
+
+  return {
+    isStorageAvailable() { return isAvailable; },
+    getLists() {
+      try {
+        let raw = safeGet(LS_LISTS);
+        if (!raw) {
+          safeSet(LS_LISTS, JSON.stringify(DEFAULT_LISTS));
+          return DEFAULT_LISTS;
+        }
+        return JSON.parse(raw);
+      } catch(e) { return DEFAULT_LISTS; }
+    },
+    saveLists(lists) { safeSet(LS_LISTS, JSON.stringify(lists)); },
+    getStats() {
+      try {
+        let raw = safeGet(LS_STATS);
+        return raw ? JSON.parse(raw) : {};
+      } catch(e) { return {}; }
+    },
+    saveStats(stats) { safeSet(LS_STATS, JSON.stringify(stats)); }
+  };
+})();
+
+/* --------------------------------------------------------------------------
+   3. STRATEGY PATTERN (Rendu des modes de jeu)
+   -------------------------------------------------------------------------- */
+const QuizStrategies = {
+  flash: {
+    render(engine) {
+      engine.dom.uiFlash.classList.remove("hidden");
+      engine.dom.btnReveal.classList.remove("hidden");
+      engine.dom.gradeRow.classList.add("hidden");
+    }
+  },
+  spell: {
+    render(engine) {
+      engine.dom.uiSpell.classList.remove("hidden");
+      engine.dom.spellInput.value = "";
+      engine.dom.spellInput.placeholder = engine.state.gameMode === "plural" ? "Écris le pluriel..." : "Écris la traduction...";
+      engine.dom.spellInput.disabled = false;
+      engine.dom.spellFeedback.textContent = "";
+      engine.dom.spellFeedback.className = "feedback";
+      engine.dom.btnSpellCheck.classList.remove("hidden");
+      engine.dom.btnSpellNext.classList.add("hidden");
+      setTimeout(() => engine.dom.spellInput.focus(), 50);
+    }
+  },
+  qcm: {
+    render(engine) {
+      engine.dom.uiQcm.classList.remove("hidden");
+      engine.dom.qcmOptions.classList.remove("row-mode");
+      engine.dom.qcmFeedback.textContent = "";
+      engine.dom.btnQcmNext.classList.add("hidden");
+      engine.state.qcmAnswered = false;
+
+      const currentWord = engine.state.deck[engine.state.idx];
+      const correctBack = engine.getBackText(currentWord);
+
+      const others = engine.state.deck.filter((_, i) => i !== engine.state.idx);
+      const shuffledOthers = Utils.shuffle(others);
+      const distractorPool = shuffledOthers.map(w => engine.getBackText(w));
+      const distractors = [];
+      for (const d of distractorPool) {
+        if (Utils.normalize(d) !== Utils.normalize(correctBack) && !distractors.some(x => Utils.normalize(x) === Utils.normalize(d))) {
+          distractors.push(d);
+        }
+        if (distractors.length >= 3) break;
+      }
+      const options = Utils.shuffle([correctBack, ...distractors]);
+
+      engine.dom.qcmOptions.innerHTML = "";
+      options.forEach(opt => {
+        const el = document.createElement("div");
+        el.className = "qcmopt";
+        el.innerHTML = Utils.colorizeArticles(opt);
+        el.onclick = () => engine.handleQcmSelection(el, opt, correctBack);
+        engine.dom.qcmOptions.appendChild(el);
+      });
+    }
+  },
+  article: {
+    render(engine) {
+      engine.dom.uiQcm.classList.remove("hidden");
+      engine.dom.qcmOptions.classList.add("row-mode");
+      engine.dom.qcmFeedback.textContent = "";
+      engine.dom.btnQcmNext.classList.add("hidden");
+      engine.state.qcmAnswered = false;
+
+      const currentWord = engine.state.deck[engine.state.idx];
+      const correctArt = Utils.getArticle(currentWord[0]);
+      const options = ["der", "die", "das"];
+
+      engine.dom.qcmOptions.innerHTML = "";
+      options.forEach(art => {
+        const el = document.createElement("div");
+        el.className = `qcmopt art-${art === 'die' ? 'die-fem' : art}`;
+        el.textContent = art;
+        el.onclick = () => engine.handleQcmSelection(el, art, correctArt);
+        engine.dom.qcmOptions.appendChild(el);
+      });
+    }
+  }
+};
+QuizStrategies.plural = QuizStrategies.spell;
+
+/* --------------------------------------------------------------------------
+   4. MODULE PRINCIPAL / FACTORY ENGINE (State & Mediator)
+   -------------------------------------------------------------------------- */
+const App = (function() {
+  const $ = id => document.getElementById(id);
+  const dom = {
+    screens: {
+      home: $("screen-home"),
+      edit: $("screen-edit"),
+      quiz: $("screen-quiz"),
+      end: $("screen-end")
+    },
+    listSelect: $("listSelect"),
+    storageWarning: $("storageWarning"),
+    editName: $("editName"),
+    editArea: $("editArea"),
+    imgPick: $("imgPick"),
+    imgPreview: $("imgPreview"),
+    imgPickLabel: $("imgPickLabel"),
+    progressText: $("progressText"),
+    barfill: $("barfill"),
+    scoreLive: $("scoreLive"),
+    frontText: $("frontText"),
+    backText: $("backText"),
+    tagText: $("tagText"),
+    uiFlash: $("uiFlash"),
+    uiSpell: $("uiSpell"),
+    uiQcm: $("uiQcm"),
+    btnReveal: $("btnReveal"),
+    gradeRow: $("gradeRow"),
+    spellInput: $("spellInput"),
+    spellFeedback: $("spellFeedback"),
+    btnSpellCheck: $("btnSpellCheck"),
+    btnSpellNext: $("btnSpellNext"),
+    qcmOptions: $("qcmOptions"),
+    qcmFeedback: $("qcmFeedback"),
+    btnQcmNext: $("btnQcmNext"),
+    finalScore: $("finalScore"),
+    finalPct: $("finalPct"),
+    missedList: $("missedList")
+  };
+
+  const state = {
+    lists: StorageModule.getLists(),
+    stats: StorageModule.getStats(),
+    currentListName: "",
+    direction: "DF",     // DF = DE->FR, FD = FR->DE
+    gameMode: "flash",   // flash | spell | qcm | article | plural
+    priorityMode: "all", // all | missed
+    deck: [],
+    idx: 0,
+    correctCount: 0,
+    wrongWords: [],
+    editingExisting: false,
+    qcmAnswered: false
+  };
+
+  state.currentListName = Object.keys(state.lists)[0] || "Kultur und Sprachen";
+
+  function showScreen(name) {
+    Object.values(dom.screens).forEach(s => s.classList.add("hidden"));
+    dom.screens[name].classList.remove("hidden");
+  }
+
+  function refreshListSelect() {
+    dom.listSelect.innerHTML = "";
+    Object.keys(state.lists).forEach(name => {
+      const opt = document.createElement("option");
+      opt.value = name;
+      opt.textContent = `${name} (${state.lists[name].length} mots)`;
+      if (name === state.currentListName) opt.selected = true;
+      dom.listSelect.appendChild(opt);
+    });
+  }
+
+  function setActive(group, activeBtn) {
+    group.forEach(b => b.classList.remove("active"));
+    activeBtn.classList.add("active");
+  }
+
+  function getFrontText(word) {
+    const [de, fr] = word;
+    if (state.gameMode === "article") return Utils.getCleanNoun(de).replace(/^der\s+|^die\s+|^das\s+/i, '');
+    if (state.gameMode === "plural") return Utils.getCleanNoun(de);
+    return state.direction === "DF" ? de : fr;
+  }
+
+  function getBackText(word) {
+    const [de, fr] = word;
+    if (state.gameMode === "article") return de;
+    if (state.gameMode === "plural") return Utils.computePlural(de);
+    return state.direction === "DF" ? fr : de;
+  }
+
+  function getTagText() {
+    if (state.gameMode === "article") return "🎯 Trouve le bon déterminant";
+    if (state.gameMode === "plural") return "📚 Écris la forme du pluriel";
+    return state.direction === "DF" ? "🇩🇪 allemand" : "🇫🇷 français";
+  }
+
+  function renderCard() {
+    const total = state.deck.length;
+    dom.progressText.textContent = `Carte ${state.idx + 1} / ${total}`;
+    dom.barfill.style.width = `${(state.idx / total) * 100}%`;
+    dom.scoreLive.textContent = `✅ ${state.correctCount}`;
+
+    const currentWord = state.deck[state.idx];
+    const front = getFrontText(currentWord);
+    const back = getBackText(currentWord);
+
+    // Application dynamique des couleurs de déterminants pour le mot présenté
+    dom.frontText.innerHTML = Utils.colorizeArticles(front);
+
+    if (state.direction === "FD" || state.gameMode === "article") {
+      dom.backText.innerHTML = Utils.colorizeArticles(back);
+    } else {
+      dom.backText.textContent = back;
+    }
+
+    dom.backText.classList.add("hidden");
+    dom.tagText.textContent = getTagText();
+
+    dom.uiFlash.classList.add("hidden");
+    dom.uiSpell.classList.add("hidden");
+    dom.uiQcm.classList.add("hidden");
+
+    const strategy = QuizStrategies[state.gameMode];
+    if (strategy) {
+      strategy.render({ dom, state, getBackText, handleQcmSelection });
+    }
+  }
+
+  function gradeSilent(isRight) {
+    const [de] = state.deck[state.idx];
+    const key = state.currentListName + "|" + de;
+    const s = state.stats[key] || { wrong: 0, right: 0 };
+    if (isRight) {
+      s.right++;
+      state.correctCount++;
+    } else {
+      s.wrong++;
+      state.wrongWords.push(state.deck[state.idx]);
+    }
+    state.stats[key] = s;
+    StorageModule.saveStats(state.stats);
+  }
+
+  function grade(isRight) {
+    gradeSilent(isRight);
+    advance();
+  }
+
+  function advance() {
+    state.idx++;
+    if (state.idx >= state.deck.length) {
+      endQuiz();
+    } else {
+      renderCard();
+    }
+  }
+
+  function checkSpelling() {
+    const currentWord = state.deck[state.idx];
+    const expected = getBackText(currentWord);
+    const val = dom.spellInput.value;
+    const ok = Utils.isCorrectAnswer(val, expected);
+
+    dom.spellInput.disabled = true;
+    dom.backText.classList.remove("hidden");
+
+    if (ok) {
+      dom.spellFeedback.textContent = "✅ Correct !";
+      dom.spellFeedback.className = "feedback ok";
+    } else {
+      dom.spellFeedback.innerHTML = `❌ Réponse attendue : ${Utils.colorizeArticles(expected)}`;
+      dom.spellFeedback.className = "feedback ko";
+    }
+    dom.btnSpellCheck.classList.add("hidden");
+    dom.btnSpellNext.classList.remove("hidden");
+    gradeSilent(ok);
+  }
+
+  function handleQcmSelection(el, chosen, correctBack) {
+    if (state.qcmAnswered) return;
+    state.qcmAnswered = true;
+    dom.backText.classList.remove("hidden");
+    const ok = Utils.normalize(chosen) === Utils.normalize(correctBack);
+
+    document.querySelectorAll(".qcmopt").forEach(o => {
+      if (Utils.normalize(o.textContent) === Utils.normalize(correctBack)) o.classList.add("correct");
+      else if (o === el) o.classList.add("wrong");
+    });
+
+    dom.qcmFeedback.textContent = ok ? "✅ Correct !" : "❌ Raté";
+    dom.qcmFeedback.className = "feedback " + (ok ? "ok" : "ko");
+    dom.btnQcmNext.classList.remove("hidden");
+    gradeSilent(ok);
+  }
+
+  function endQuiz() {
+    showScreen("end");
+    const total = state.deck.length;
+    dom.finalScore.textContent = `${state.correctCount}/${total}`;
+    const pct = Math.round((state.correctCount / total) * 100);
+    dom.finalPct.textContent = pct >= 80 ? "Excellent ! 🔥" : pct >= 50 ? "Pas mal, continue 💪" : "Il faut réviser encore un peu 📚";
+
+    if (state.wrongWords.length === 0) {
+      dom.missedList.innerHTML = "<i>Aucune erreur, bravo !</i>";
+    } else {
+      dom.missedList.innerHTML = state.wrongWords.map(([de, fr]) => `<div><b>${Utils.colorizeArticles(de)}</b> — ${fr}</div>`).join("");
+    }
+  }
+
+  function resetImagePicker() {
+    dom.imgPick.value = "";
+    dom.imgPreview.src = "";
+    dom.imgPreview.classList.add("hidden");
+  }
+
+  function initEvents() {
+    if (!StorageModule.isStorageAvailable()) {
+      dom.storageWarning.classList.remove("hidden");
+    }
+
+    refreshListSelect();
+    dom.listSelect.addEventListener("change", e => { state.currentListName = e.target.value; });
+
+    const dirBtns = [$('dirDF'), $('dirFD')];
+    $('dirDF').onclick = () => { state.direction = "DF"; setActive(dirBtns, $('dirDF')); };
+    $('dirFD').onclick = () => { state.direction = "FD"; setActive(dirBtns, $('dirFD')); };
+
+    const modeBtns = [$('modeFlash'), $('modeSpell'), $('modeQcm'), $('modeArticle'), $('modePlural')];
+    $('modeFlash').onclick   = () => { state.gameMode = "flash"; setActive(modeBtns, $('modeFlash')); };
+    $('modeSpell').onclick   = () => { state.gameMode = "spell"; setActive(modeBtns, $('modeSpell')); };
+    $('modeQcm').onclick     = () => { state.gameMode = "qcm"; setActive(modeBtns, $('modeQcm')); };
+    $('modeArticle').onclick = () => { state.gameMode = "article"; setActive(modeBtns, $('modeArticle')); };
+    $('modePlural').onclick  = () => { state.gameMode = "plural"; setActive(modeBtns, $('modePlural')); };
+
+    const prioBtns = [$('modeAll'), $('modeMissed')];
+    $('modeAll').onclick    = () => { state.priorityMode = "all"; setActive(prioBtns, $('modeAll')); };
+    $('modeMissed').onclick = () => { state.priorityMode = "missed"; setActive(prioBtns, $('modeMissed')); };
+
+    $('btnNewList').onclick = () => {
+      state.editingExisting = false;
+      dom.editName.value = "";
+      dom.editArea.value = "";
+      resetImagePicker();
+      showScreen("edit");
+    };
+
+    $('btnEditList').onclick = () => {
+      state.editingExisting = true;
+      dom.editName.value = state.currentListName;
+      dom.editArea.value = state.lists[state.currentListName].map(([de, fr]) => `${de} ; ${fr}`).join("\n");
+      resetImagePicker();
+      showScreen("edit");
+    };
+
+    $('btnDeleteList').onclick = () => {
+      if (Object.keys(state.lists).length <= 1) { alert("Il doit rester au moins une liste."); return; }
+      if (confirm(`Supprimer la liste "${state.currentListName}" ?`)) {
+        delete state.lists[state.currentListName];
+        StorageModule.saveLists(state.lists);
+        state.currentListName = Object.keys(state.lists)[0];
+        refreshListSelect();
+      }
+    };
+
+    $('btnCancelEdit').onclick = () => showScreen("home");
+
+    $('btnSaveEdit').onclick = () => {
+      const name = dom.editName.value.trim();
+      if (!name) { alert("Donne un nom à la liste."); return; }
+      const lines = dom.editArea.value.split("\n").map(l => l.trim()).filter(Boolean);
+      const words = lines.map(l => {
+        const parts = l.split(/;|\t|\|/);
+        if (parts.length < 2) return null;
+        return [parts[0].trim(), parts.slice(1).join(";").trim()];
+      }).filter(Boolean);
+
+      if (words.length === 0) { alert("Aucun mot valide trouvé. Format attendu : allemand ; français"); return; }
+      if (state.editingExisting && name !== state.currentListName) { delete state.lists[state.currentListName]; }
+
+      state.lists[name] = words;
+      StorageModule.saveLists(state.lists);
+      state.currentListName = name;
+      refreshListSelect();
+      showScreen("home");
+    };
+
+    dom.imgPickLabel.onclick = () => dom.imgPick.click();
+    dom.imgPick.addEventListener("change", e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        dom.imgPreview.src = ev.target.result;
+        dom.imgPreview.classList.remove("hidden");
+      };
+      reader.readAsDataURL(file);
+    });
+
+    $('btnStart').onclick = () => {
+      let words = state.lists[state.currentListName];
+      if (!words || words.length === 0) { alert("Cette liste est vide."); return; }
+
+      if (state.gameMode === "article") {
+        words = words.filter(w => Utils.getArticle(w[0]) !== null);
+        if (words.length === 0) {
+          alert("Aucun nom avec déterminant (der/die/das) trouvé dans cette liste.");
+          return;
+        }
+      }
+
+      if (state.gameMode === "plural") {
+        words = words.filter(w => Utils.computePlural(w[0]) !== null);
+        if (words.length === 0) {
+          alert("Aucun mot avec indication de pluriel entre parenthèses trouvé dans cette liste.");
+          return;
+        }
+      }
+
+      if (state.gameMode === "qcm" && words.length < 4) {
+        alert("Il faut au moins 4 mots dans la liste pour le mode QCM.");
+        return;
+      }
+
+      let pool = words.slice();
+      if (state.priorityMode === "missed") {
+        pool.sort((a, b) => {
+          const sa = state.stats[state.currentListName + "|" + a[0]] || { wrong: 0, right: 0 };
+          const sb = state.stats[state.currentListName + "|" + b[0]] || { wrong: 0, right: 0 };
+          return (sb.wrong - sb.right) - (sa.wrong - sa.right);
+        });
+        pool = pool.slice(0, Math.max(5, Math.ceil(pool.length * 0.6)));
+      }
+
+      state.deck = Utils.shuffle(pool);
+      state.idx = 0;
+      state.correctCount = 0;
+      state.wrongWords = [];
+      showScreen("quiz");
+      renderCard();
+    };
+
+    $('btnQuit').onclick = () => showScreen("home");
+
+    dom.btnReveal.onclick = () => {
+      dom.backText.classList.remove("hidden");
+      dom.btnReveal.classList.add("hidden");
+      dom.gradeRow.classList.remove("hidden");
+    };
+    $('btnRight').onclick = () => grade(true);
+    $('btnWrong').onclick = () => grade(false);
+
+    dom.btnSpellCheck.onclick = checkSpelling;
+    dom.spellInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") { e.preventDefault(); checkSpelling(); }
+    });
+    dom.btnSpellNext.onclick = () => advance();
+
+    dom.btnQcmNext.onclick = () => advance();
+
+    $('btnReplayMissed').onclick = () => {
+      if (state.wrongWords.length === 0) { showScreen("home"); return; }
+      state.deck = Utils.shuffle(state.wrongWords.slice());
+      state.idx = 0;
+      state.correctCount = 0;
+      state.wrongWords = [];
+      showScreen("quiz");
+      renderCard();
+    };
+    $('btnBackHome').onclick = () => showScreen("home");
+  }
+
+  return {
+    init() {
+      initEvents();
+    }
+  };
+})();
+
+document.addEventListener("DOMContentLoaded", () => {
+  App.init();
+});
+</script>
+</body>
+</html>

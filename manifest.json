@@ -1,0 +1,15 @@
+{
+  "short_name": "Vocab",
+  "name": "Vocab DE-FR",
+  "icons": [
+    {
+      "src": "icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#12141c",
+  "theme_color": "#12141c",
+  "display": "standalone"
+}
