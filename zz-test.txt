@@ -1,0 +1,5 @@
+line1 .replace(/\*/g, '');
+line2 split("\n");
+line3 replace(/\n/g, "x");
+line4 a\b "quote" /slash/
+line5 end\
