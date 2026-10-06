@@ -58,8 +58,7 @@
     background: var(--accent); color: #0b0d14; font-size: 1rem; font-weight: 600;
     margin-top: 10px; cursor: pointer;
   }
-  .btn.secondary { background: var(--card2); color: var(--text)
-; }
+  .btn.secondary { background: var(--card2); color: var(--text); }
   .btn.good { background: var(--accent2); color: #0b0d14; }
   .btn.bad { background: var(--bad); color: #2b0b0b; }
   .row { display: flex; gap: 10px; }
@@ -95,8 +94,7 @@
   .score { font-size: 2.2rem; font-weight: 800; text-align: center; margin: 14px 0 4px; }
   .missedlist { font-size: .85rem; color: var(--sub); line-height: 1.6; max-height: 180px; overflow-y: auto; }
   .missedlist b { color: var(--text); }
-  .listbtns { d
-isplay: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .listbtns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
   .chip {
     padding: 8px 12px; border-radius: 20px; background: var(--card2); color: var(--sub);
     font-size: .8rem; border: 1px solid #333850; cursor: pointer;
@@ -126,8 +124,7 @@ isplay: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
   /* Style Déterminants Colorés */
   .art-der { color: var(--art-der) !important; font-weight: bold; }
   .art-die-fem { color: var(--art-die-fem) !important; font-weight: bold; }
-  .art-das { color: var(--art-das) !important; fon
-t-weight: bold; }
+  .art-das { color: var(--art-das) !important; font-weight: bold; }
   .art-die-plu { color: var(--art-die-plu) !important; font-weight: bold; text-decoration: underline; }
 </style>
 </head>
@@ -187,8 +184,7 @@ t-weight: bold; }
   <div id="screen-edit" class="hidden">
     <div class="card">
       <label>Nom de la liste</label>
-      <input type="text" id="editName" placeholder="ex: Kul
-tur und Sprachen">
+      <input type="text" id="editName" placeholder="ex: Kultur und Sprachen">
       <label style="display:block;margin-top:14px;">
         Colle ta liste : un mot par ligne, format <code>allemand ; français</code>
       </label>
@@ -235,8 +231,7 @@ tur und Sprachen">
 
     <!-- MODE ORTHOGRAPHE & PLURIEL -->
     <div id="uiSpell" class="hidden">
-      <input type="text" id="spellInput" placeholder="Écris la traduction..." autocom
-plete="off" autocapitalize="off" spellcheck="false">
+      <input type="text" id="spellInput" placeholder="Écris la traduction..." autocomplete="off" autocapitalize="off" spellcheck="false">
       <div class="feedback" id="spellFeedback"></div>
       <button class="btn" id="btnSpellCheck">Valider</button>
       <button class="btn secondary hidden" id="btnSpellNext">Continuer →</button>
@@ -290,8 +285,7 @@ const Utils = {
     return s.toLowerCase()
       .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Supprime les accents
       .replace(/\*/g, '')
-      .replace(/\((adj\.|adj|v\.|v|n\.|n)\)/g, '')
- // Supprime les annotations de grammaire entre parenthèses
+      .replace(/\((adj\.|adj|v\.|v|n\.|n)\)/g, '') // Supprime les annotations de grammaire entre parenthèses
       .replace(/\([^)]*\)/g, '') // Supprime le reste des parenthèses
       .replace(/\bqc\./g, 'quelque chose')
       .replace(/\bqn\./g, 'quelqu\'un')
@@ -347,7 +341,6 @@ const Utils = {
   getArticle(deStr) {
     const match = deStr.match(/\b(der|die|das)\b/i);
     return match ? match[1].toLowerCase() : null;
-
   },
   getCleanNoun(deStr) {
     return deStr.replace(/\([^)]*\)/g, '').trim();
@@ -397,8 +390,7 @@ const StorageModule = (function() {
       ["die Emigration(en), die Auswanderung(en)", "l'émigration"],
       ["emigrieren, aus/wandern", "émigrer"],
       ["der Migrant(en), der Ausländer(-)", "le migrant, l'étranger"],
-      ["der Flüchtling(e), nach Deut
-schland fliehen", "le réfugié, fuir vers l'Allemagne"],
+      ["der Flüchtling(e), nach Deutschland fliehen", "le réfugié, fuir vers l'Allemagne"],
       ["die Integration(en), sich integrieren", "l'intégration, s'intégrer"],
       ["die Diskriminierung(en), diskriminieren", "la discrimination, discriminer"],
       ["der Rassismus", "le racisme"],
@@ -433,8 +425,7 @@ schland fliehen", "le réfugié, fuir vers l'Allemagne"],
       ["das Mittelgebirge(-)", "la moyenne montagne"],
       ["die Ebene(-n) (in der Ebene)", "la plaine (dans la plaine)"],
       ["das Tal(Täler) (im Tal)", "la vallée (dans la vallée)"],
-      ["der Fluss(
-Flüsse) (am Fluss)", "le fleuve / la rivière (au bord du fleuve)"],
+      ["der Fluss(Flüsse) (am Fluss)", "le fleuve / la rivière (au bord du fleuve)"],
       ["der Kanal(Kanäle)", "le canal"],
       ["der See(-n) (am See, am Ufer des Sees)", "le lac (au bord du lac, sur la rive du lac)"],
       ["das Meer(-e) (am Meer)", "la mer (à la mer / au bord de la mer)"],
@@ -489,8 +480,7 @@ Flüsse) (am Fluss)", "le fleuve / la rivière (au bord du fleuve)"],
 const QuizStrategies = {
   flash: {
     render(engine) {
-      engine.dom.
-uiFlash.classList.remove("hidden");
+      engine.dom.uiFlash.classList.remove("hidden");
       engine.dom.btnReveal.classList.remove("hidden");
       engine.dom.gradeRow.classList.add("hidden");
     }
@@ -536,8 +526,7 @@ uiFlash.classList.remove("hidden");
         const el = document.createElement("div");
         el.className = "qcmopt";
         el.innerHTML = Utils.colorizeArticles(opt);
-        el.onclick = () => engine.handleQcmSelection(el, opt, correc
-tBack);
+        el.onclick = () => engine.handleQcmSelection(el, opt, correctBack);
         engine.dom.qcmOptions.appendChild(el);
       });
     }
@@ -598,8 +587,7 @@ const App = (function() {
     btnReveal: $("btnReveal"),
     gradeRow: $("gradeRow"),
     spellInput: $("spellInput"),
-    spellFeedback: $("spellFe
-edback"),
+    spellFeedback: $("spellFeedback"),
     btnSpellCheck: $("btnSpellCheck"),
     btnSpellNext: $("btnSpellNext"),
     qcmOptions: $("qcmOptions"),
@@ -663,8 +651,7 @@ edback"),
   }
 
   function getTagText() {
-    if (state.ga
-meMode === "article") return "🎯 Trouve le bon déterminant";
+    if (state.gameMode === "article") return "🎯 Trouve le bon déterminant";
     if (state.gameMode === "plural") return "📚 Écris la forme du pluriel";
     return state.direction === "DF" ? "🇩🇪 allemand" : "🇫🇷 français";
   }
@@ -732,8 +719,7 @@ meMode === "article") return "🎯 Trouve le bon déterminant";
 
   function checkSpelling() {
     const currentWord = state.deck[state.idx];
-   
- const expected = getBackText(currentWord);
+    const expected = getBackText(currentWord);
     const val = dom.spellInput.value;
     const ok = Utils.isCorrectAnswer(val, expected);
 
@@ -786,8 +772,7 @@ meMode === "article") return "🎯 Trouve le bon déterminant";
   function resetImagePicker() {
     dom.imgPick.value = "";
     dom.imgPreview.src = "";
-    dom.
-imgPreview.classList.add("hidden");
+    dom.imgPreview.classList.add("hidden");
   }
 
   function initEvents() {
@@ -830,8 +815,7 @@ imgPreview.classList.add("hidden");
     };
 
     $('btnDeleteList').onclick = () => {
-      if (Object.keys(state.lists).leng
-th <= 1) { alert("Il doit rester au moins une liste."); return; }
+      if (Object.keys(state.lists).length <= 1) { alert("Il doit rester au moins une liste."); return; }
       if (confirm(`Supprimer la liste "${state.currentListName}" ?`)) {
         delete state.lists[state.currentListName];
         StorageModule.saveLists(state.lists);
@@ -848,4 +832,115 @@ th <= 1) { alert("Il doit rester au moins une liste."); return; }
       const lines = dom.editArea.value.split("\n").map(l => l.trim()).filter(Boolean);
       const words = lines.map(l => {
         const parts = l.split(/;|\t|\|/);
-        if (parts.length < 2) return
+        if (parts.length < 2) return null;
+        return [parts[0].trim(), parts.slice(1).join(";").trim()];
+      }).filter(Boolean);
+
+      if (words.length === 0) { alert("Aucun mot valide trouvé. Format attendu : allemand ; français"); return; }
+      if (state.editingExisting && name !== state.currentListName) { delete state.lists[state.currentListName]; }
+
+      state.lists[name] = words;
+      StorageModule.saveLists(state.lists);
+      state.currentListName = name;
+      refreshListSelect();
+      showScreen("home");
+    };
+
+    dom.imgPickLabel.onclick = () => dom.imgPick.click();
+    dom.imgPick.addEventListener("change", e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        dom.imgPreview.src = ev.target.result;
+        dom.imgPreview.classList.remove("hidden");
+      };
+      reader.readAsDataURL(file);
+    });
+
+    $('btnStart').onclick = () => {
+      let words = state.lists[state.currentListName];
+      if (!words || words.length === 0) { alert("Cette liste est vide."); return; }
+
+      if (state.gameMode === "article") {
+        words = words.filter(w => Utils.getArticle(w[0]) !== null);
+        if (words.length === 0) {
+          alert("Aucun nom avec déterminant (der/die/das) trouvé dans cette liste.");
+          return;
+        }
+      }
+
+      if (state.gameMode === "plural") {
+        words = words.filter(w => Utils.computePlural(w[0]) !== null);
+        if (words.length === 0) {
+          alert("Aucun mot avec indication de pluriel entre parenthèses trouvé dans cette liste.");
+          return;
+        }
+      }
+
+      if (state.gameMode === "qcm" && words.length < 4) {
+        alert("Il faut au moins 4 mots dans la liste pour le mode QCM.");
+        return;
+      }
+
+      let pool = words.slice();
+      if (state.priorityMode === "missed") {
+        pool.sort((a, b) => {
+          const sa = state.stats[state.currentListName + "|" + a[0]] || { wrong: 0, right: 0 };
+          const sb = state.stats[state.currentListName + "|" + b[0]] || { wrong: 0, right: 0 };
+          return (sb.wrong - sb.right) - (sa.wrong - sa.right);
+        });
+        pool = pool.slice(0, Math.max(5, Math.ceil(pool.length * 0.6)));
+      }
+
+      state.deck = Utils.shuffle(pool);
+      state.idx = 0;
+      state.correctCount = 0;
+      state.wrongWords = [];
+      showScreen("quiz");
+      renderCard();
+    };
+
+    $('btnQuit').onclick = () => showScreen("home");
+
+    dom.btnReveal.onclick = () => {
+      dom.backText.classList.remove("hidden");
+      dom.btnReveal.classList.add("hidden");
+      dom.gradeRow.classList.remove("hidden");
+    };
+    $('btnRight').onclick = () => grade(true);
+    $('btnWrong').onclick = () => grade(false);
+
+    dom.btnSpellCheck.onclick = checkSpelling;
+    dom.spellInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") { e.preventDefault(); checkSpelling(); }
+    });
+    dom.btnSpellNext.onclick = () => advance();
+
+    dom.btnQcmNext.onclick = () => advance();
+
+    $('btnReplayMissed').onclick = () => {
+      if (state.wrongWords.length === 0) { showScreen("home"); return; }
+      state.deck = Utils.shuffle(state.wrongWords.slice());
+      state.idx = 0;
+      state.correctCount = 0;
+      state.wrongWords = [];
+      showScreen("quiz");
+      renderCard();
+    };
+    $('btnBackHome').onclick = () => showScreen("home");
+  }
+
+  return {
+    init() {
+      initEvents();
+    }
+  };
+})();
+
+document.addEventListener("DOMContentLoaded", () => {
+  App.init();
+});
+</script>
+</body>
+</html>
