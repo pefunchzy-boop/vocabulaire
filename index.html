@@ -380,7 +380,7 @@ const Utils = {
    2. MODULE STORAGE (Singleton & Encapsulation)
    -------------------------------------------------------------------------- */
 const StorageModule = (function() {
-  const LS_LISTS = "vocabapp_lists_v4";
+  const LS_LISTS = "vocabapp_lists_v3";
   const LS_STATS = "vocabapp_stats_v3";
   let isAvailable = true;
 
@@ -448,33 +448,6 @@ Flüsse) (am Fluss)", "le fleuve / la rivière (au bord du fleuve)"],
       ["der Nachbarstaat(-en)", "l'État voisin / le pays voisin"],
       ["das Bundesland(-länder)", "l'État fédéré (en Allemagne)"],
       ["die Region(-en)", "la région (en France)"]
-    ],
-    "Angela Merkel – Kapitel 2": [
-      ["\"bund-\" (Bundeskanzlerin, Bundesrepublik)", "préfixe pour \"fédéral\" (= national en All.)"],
-      ["der Staat(en) vs. das Land( Länder)", "l'État vs. le pays"],
-      ["der Kanzler(-), die Kanzlerin(nen)", "le chancelier, la chancelière"],
-      ["ehemalig, die ehemalige Kanzlerin", "ancien, précédent / l'ancienne chancelière"],
-      ["der Staatschef(-s), die Staatschefin(nen)", "le chef / la cheffe d'État"],
-      ["das Amt, die Amtsperiode", "la fonction (pol.), le mandat"],
-      ["an der Macht", "au pouvoir"],
-      ["die Partei(en)", "le parti (politique)"],
-      ["die Politik, politisch, der Politiker(-)", "la politique, politique (adj.), le politicien"],
-      ["das Gesetz(e), ein Gesetz erlassen", "la loi, faire passer une loi"],
-      ["in der DDR auf/wachsen", "grandir en RDA"],
-      ["der Mauerfall", "la chute du Mur"],
-      ["die Herausforderung(en)", "le défi / le challenge"],
-      ["die Flüchtlinge, Flüchtlinge auf/nehmen", "les réfugiés, accueillir des réfugiés"],
-      ["die Demonstration(en), die Demo(s)", "la manifestation, la manif"],
-      ["(die AfD) verstärken", "renforcer (l'AfD)"],
-      ["kritisiert werden, Merkel wurde von der AfD kritisiert", "être critiqué / Merkel est critiquée par l'AfD"],
-      ["umstritten", "controversé, débattu, polémique"],
-      ["der Feminismus, die Feministin(nen)", "le féminisme, la féministe"],
-      ["der Rassismus", "le racisme"],
-      ["der Bürger(-), die Bürgerin(nen)", "le citoyen, la citoyenne"],
-      ["die Gesellschaft(en), die Bevölkerung", "la société, la population"],
-      ["das Leben(-), ein normales Leben führen", "la vie, mener une vie normale"],
-      ["der Alltag, alltäglich", "le quotidien, quotidien (adj.)"],
-      ["bodenständig, hartnäckig", "avoir les pieds sur terre, obstiné"]
     ]
   };
 
@@ -876,5 +849,3 @@ th <= 1) { alert("Il doit rester au moins une liste."); return; }
       const words = lines.map(l => {
         const parts = l.split(/;|\t|\|/);
         if (parts.length < 2) return
-
-... [Content truncated]
